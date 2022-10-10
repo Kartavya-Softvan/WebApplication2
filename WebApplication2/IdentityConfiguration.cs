@@ -14,21 +14,6 @@ namespace WebApplication2
         public static List<TestUser> TestUsers =>
             new List<TestUser>
             {
-        //new TestUser
-        //{
-        //    SubjectId = "1144",
-        //    Username = "mukesh",
-        //    Password = "mukesh",
-        //    Claims =
-        //    {
-        //        new Claim(JwtClaimTypes.Name, "Mukesh Murugan"),
-        //        new Claim(JwtClaimTypes.GivenName, "Mukesh"),
-        //        new Claim(JwtClaimTypes.FamilyName, "Murugan"),
-        //        new Claim(JwtClaimTypes.WebSite, "http://codewithmukesh.com"),
-        //        //new Claim(JwtClaimTypes.Scope,"api1"),
-        //        new Claim(JwtClaimTypes.Role,"api")
-        //    }
-        //},
         new TestUser
         {
             SubjectId = "1145",
@@ -40,9 +25,8 @@ namespace WebApplication2
                 new Claim(JwtClaimTypes.GivenName, "admin"),
                 new Claim(JwtClaimTypes.FamilyName, "admin"),
                 new Claim(JwtClaimTypes.WebSite, "http://codewithmukesh.com"),
-                //new Claim(JwtClaimTypes.Scope,"api1"),
-                new Claim(JwtClaimTypes.Role,"admin")
-            }
+            },
+            
         }
         };
 
@@ -66,7 +50,8 @@ namespace WebApplication2
         {
             Scopes = new List<string>{ "myApi.read","myApi.write" },
             ApiSecrets = new List<Secret>{ new Secret("supersecret".Sha256()) }
-        }
+        },
+        new ApiResource("roles", "My Roles", new[] { "role" })
             };
 
         public static IEnumerable<Client> Clients =>
@@ -74,13 +59,27 @@ namespace WebApplication2
             {
                 new Client
                 {
-                    ClientId = "cwm.client",
+                    ClientId = "c1.client",
                     ClientName = "Client Credentials Client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedScopes = { "myApi.read", "myApi.write", JwtClaimTypes.Role }
-                    //AllowedScopes = { "myApi.read","myApi.write" },
-                    //Claims={new Claim(ClaimTypes.Role,"admin") }
+                },
+                new Client
+                {
+                    ClientId = "c2.client",
+                    ClientName = "Client Credentials Client",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedScopes = { "myApi.read", "myApi.write", JwtClaimTypes.Role }
+                },
+                new Client
+                {
+                    ClientId = "c3.client",
+                    ClientName = "Client Credentials Client",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedScopes = { "myApi.read", "myApi.write", JwtClaimTypes.Role }
                 },
             };
     }

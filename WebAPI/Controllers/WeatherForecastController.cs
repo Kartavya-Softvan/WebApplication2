@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Filter;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize(Policy = "Apiscope")]
-    [Authorize(Policy = "AdminUsers")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -27,6 +27,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [CustomPolicy("client1_Policy","client2_Policy")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

@@ -36,28 +36,13 @@ namespace WebAPI
                     ValidateAudience = false
                 };
             });
-            services.AddAuthorization(opt =>
+            services.AddAuthorization(options =>
             {
-                opt.AddPolicy("Apiscope", policy =>
+                options.AddPolicy("ApiUser", policy =>
                 {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("Scope", "myApi.read");
-                    
+                    policy.RequireClaim("policy","policy1");                    
                 });
-                opt.AddPolicy("AdminUsers", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("Scope", "myApi.write");
-                });
-
             });
-
-            //services.AddAuthorization(opt =>
-            //{
-                
-
-            //});
-
             services.AddControllers();
             services.AddControllers();
             services.AddSwaggerGen(c =>
